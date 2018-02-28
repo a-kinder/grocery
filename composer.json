@@ -1,0 +1,26 @@
+{
+    "name": "a-kinder/php-consumer",
+    "description": "",
+    "type": "project",
+    "license": "ISC",
+    "authors": [
+        {
+            "name": "a-kinder",
+            "email": "angelarkinder@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Angela\\": "php"
+        }
+    },
+    "require": {
+        "slim/slim": "^3.8",
+        "php-di/slim-bridge": "^1.0",
+        "mnapoli/silly-php-di": "^1.1",
+        "doctrine/orm": "^2.5",
+        "doctrine/migrations": "^1.5",
+        "doctrine/dbal": "^2.6",
+        "doctrine/cache": "^1.7"
+    }
+}
