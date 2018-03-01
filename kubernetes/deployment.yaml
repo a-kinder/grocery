@@ -1,0 +1,39 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: consumer
+  name: consumer
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: consumer
+  strategy:
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: consumer
+    spec:
+      containers:
+      - image: angelakinder/php-consumer:latest
+        imagePullPolicy: Always
+        name: consumer
+        ports:
+        - name: http
+          containerPort: 80
+          protocol: TCP
+        env:
+        - name: NODE_NAME # for linkerd
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: http_proxy # for linkerd
+          value: $(NODE_NAME):4140
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      securityContext: {}
