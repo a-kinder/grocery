@@ -12,4 +12,25 @@ services:
       - ./config:/srv/config
       - ./php:/srv/php
     environment:
-      - PC_ENVIRONMENT=local
+      - ENVIRONMENT_MODE=local
+      - DB_HOST=mysql
+      - DB_USER=grocery_admin
+      - DB_PASSWORD=Ohyieph5Ri2ceetuop7aeGhaoja9Vied
+      - DB_NAME=grocery_admin
+  mysql-data:
+    image: tianon/true:latest
+    volumes:
+      - mysql-data:/var/lib/mysql
+  mysql:
+    image: mysql:5.6
+    volumes:
+      - mysql-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=s0m3th1ngstr0ng
+      - MYSQL_DATABASE=grocery_admin
+      - MYSQL_USER=grocery_admin
+      - MYSQL_PASSWORD=Ohyieph5Ri2ceetuop7aeGhaoja9Vied
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+volumes:
+  mysql-data:
