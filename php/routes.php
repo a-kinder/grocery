@@ -1,7 +1,7 @@
 <?php
 $webApp->get('/image', function(\Slim\Http\Response $response, \Angela\Services\GoogleImageOCR $g){
     try{
-        return $response->withJson($g->getText());
+        return $response->withJson($g->getText('./files/tag.jpg'));
 
     } catch(\GuzzleHttp\Exception\ClientException $e) {
         return $response->withJson($e->getMessage());
