@@ -1,0 +1,9 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Copyright © 2017 Nickel Media
+ */
+require_once __DIR__ . '/php/bootstrap.php';
+$config = include __DIR__ . '/config/config.php';
+$cliApp = new Angela\CliApp($config['appName']);
+$cliApp->run();

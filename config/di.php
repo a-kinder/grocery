@@ -31,7 +31,12 @@ use ProxyManager\FileLocator\FileLocatorInterface;
 use ProxyManager\GeneratorStrategy\FileWriterGeneratorStrategy;
 use Symfony\Component\Console\Helper\HelperSet;
 use Doctrine\Common\Cache\ArrayCache;
-
+use Angela\Entities\Keyword;
+use Angela\Entities\Product;
+use Angela\Entities\Store;
+use Angela\Repositories\KeywordRepository;
+use Angela\Repositories\ProductRepository;
+use Angela\Repositories\StoreRepository;
 use Google\Cloud\Vision\VisionClient;
 
 return [
@@ -138,17 +143,14 @@ return [
                 'projectId' => 'main-analog-197615',
                 'keyFilePath' => '../www/files/grocery-text-recognition-7b7635a3486e.json'
             ]),
-    //
-    //    'vision.client' => factory(function (Container $container) {
-    //        $client = new Google_Client();
-    //        $OAUTH2_CLIENT_ID = $container->get('youtube.id');
-    //        $OAUTH2_CLIENT_SECRET = $container->get('youtube.secret');
-    //        $client->setClientId($OAUTH2_CLIENT_ID);
-    //        $client->setClientSecret($OAUTH2_CLIENT_SECRET);
-    //        $client->setScopes(['https://www.googleapis.com/auth/youtube']);
-    //        $redirect = $container->get('baseUrl');
-    //        $client->setRedirectUri($redirect);
-    //        return $client;
-    //    }),
+    KeywordRepository::class => factory(function (EntityManagerInterface $entityManagerInterface) {
+        return $entityManagerInterface->getRepository(Keyword::class);
+    }),
+    ProductRepository::class => factory(function (EntityManagerInterface $entityManagerInterface) {
+        return $entityManagerInterface->getRepository(Product::class);
+    }),
+    StoreRepository::class => factory(function (EntityManagerInterface $entityManagerInterface) {
+        return $entityManagerInterface->getRepository(Store::class);
+    }),
 
 ];
